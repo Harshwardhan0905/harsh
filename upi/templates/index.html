@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-10 mx auto">
+  <div class="text-center">
+    <img
+      src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fsubzfresh.com%2Fproduct%2Ffresh-fruits%2Fapple%2F&psig=AOvVaw39Tt1J1JUzWCOypiRv7dmg&ust=1707990588688000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCPDTn_TGqoQDFQAAAAAdAAAAABAF"
+      class="img-fluid img-responsive" style="height: 200px;" alt="">
+
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="name" name='name' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Enter Amount</label>
+      <input type="number" name='amount' class="form-control" id="exampleInputPassword1">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% if payment %}
+<div class="text-centre mx-auto">
+  <form action="/success" method="POST">
+    <script src="https://checkout.razorpay.com/v1/checkout.js" 
+    data-key="rzp_test_6WMPi1Me1Z2e8k"
+    data-amount="{{ payment.amount }}" 
+    data-currency="INR" 
+    data-order_id="{{ payment.id }}" 
+    data-name="Acme Crop"
+    data-description="Test Transaction" 
+    data-image:="https://example.com/your_logo" 
+    data-prefill.name="Gaurav Kumar"
+    data-prefill.email="gaurav.kumar@example.com" 
+    data-prefill.contact="90009000" 
+    data-theme.color="#3399c"
+    ></script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+  </form>
+  {% endif %}
+</div>
+{% endblock %}
